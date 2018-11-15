@@ -97,3 +97,9 @@ function GkIds($column,$ID) {
 
 add_action('manage_posts_custom_column', 'GkIds', 5, 2);
 add_action('manage_pages_custom_column', 'GkIds', 5, 2);
+
+
+function GkAdminH() {
+  echo "<style>#identifiants { width: 100px; }</style>";
+}
+add_action('admin_head', 'GkAdminH');
