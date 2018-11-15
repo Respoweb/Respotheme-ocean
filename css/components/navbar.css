@@ -1,0 +1,9 @@
+.custom-menu-item:hover {
+  font-weight: 600;
+}
+
+#site-navigation-wrap .dropdown-menu>li.btn>a>span.text-wrap {
+  border-radius: 50px;
+}
+
+

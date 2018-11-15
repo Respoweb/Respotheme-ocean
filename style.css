@@ -8,4 +8,53 @@ Template: oceanwp
 Version: 1.0
 */
 
-/* Parent stylesheet should be loaded from functions.php not using @import */
+/* CUSTOM STYLE */
+
+@import url('css/components/form.css');
+@import url('css/components/cookiebar.css');
+@import url('css/components/navbar.css');
+@import url('css/components/timeline.css');
+
+/* RESPONSIVE */
+
+@import url('css/responsive/mobile.css');
+
+
+#related-posts {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-wrapper.elementor-headline-typing-selected {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* BUG FIX */
+
+.elementor-grid-3 .elementor-grid-item {
+    width: 100% !important;
+}
+
+.home-title {
+  font-size: 50px;
+  color: #fff;
+}
+
+.home-baseline {
+  font-size: 60px;
+  color: #fff;
+}
+
+.sde-h2 {
+  font-size: 50px;
+  color: #fff;
+}
+
+form input[type=checkbox]{
+  -webkit-appearance: checkbox !important;
+}
+
+form input[type=checkbox]::before{
+  background-color: #fff !important;
+  border: 1px solid #bbb !important;
+}

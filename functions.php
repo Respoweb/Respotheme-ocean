@@ -30,18 +30,19 @@ function oceanwp_child_enqueue_parent_style() {
 add_action( 'wp_enqueue_scripts', 'oceanwp_child_enqueue_parent_style' );
 
 
-// Disable page title on single posts
-function disable_title( $return ) {
 
-    if ( is_singular( 'post') ) {
-        $return = false;
-    }
+function prefix_custom_scripts() {
 
-    // Return
-    return $return;
+  $theme   = wp_get_theme( 'OceanWP' );
+  $version = $theme->get( 'Version' );
+
+  wp_enqueue_script('custom-js', get_stylesheet_directory_uri() . '/js/custom-js.js', array( 'jquery' ), $version, true );
+  // wp_enqueue_script('custom-js-1', get_stylesheet_directory_uri() . '/js/custom-js-1.js', array( 'jquery' ), $version, true );
 
 }
-add_filter( 'ocean_display_page_header', 'disable_title' );
+add_action( 'wp_enqueue_scripts', 'prefix_custom_scripts' );
+
+
 
 /**
  * Change the Continue Reading text
@@ -51,3 +52,48 @@ function myprefix_post_readmore_link_text() {
 }
 add_filter( 'ocean_post_readmore_link_text', 'myprefix_post_readmore_link_text' );
 
+
+
+/** Remove admin bar execpt for administrators **/
+
+/*Hide admin bar for certain roles*/
+
+if ( ! current_user_can( 'manage_options' ) ) {
+    show_admin_bar( false );
+}
+
+add_filter('show_admin_bar', '__return_false');
+
+
+/** Security **/
+
+/* Remove the display of wordpress version */
+
+remove_action("wp_head", "wp_generator");
+
+/* Désactivate file editor in the wordpress */
+
+define('DISALLOW_FILE_EDIT',true);
+
+
+/* Ajouter un extrait aux pages */
+
+add_action( 'admin_init', create_function('', "return add_post_type_support( 'page', 'excerpt' );") );
+
+/*  Voir l'ID des pages */
+
+function GkId($column) {
+  $column['identifiants'] = 'Identifiants';
+  return $column;
+}
+add_filter('manage_posts_columns', 'GkId', 5, 2);
+add_filter('manage_pages_columns', 'GkId', 5, 2);
+
+function GkIds($column,$ID) {
+  if( $column == 'identifiants' ) {
+    echo '<strong>'.$ID.'</strong>';
+  }
+}
+
+add_action('manage_posts_custom_column', 'GkIds', 5, 2);
+add_action('manage_pages_custom_column', 'GkIds', 5, 2);
